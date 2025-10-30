@@ -42,7 +42,7 @@ namespace SistemaAlquilerAutos.DAL
 
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@EstadoActivo", (int)EstadoAlquiler.Activo)
+                new SqlParameter("@EstadoActivo", Alquiler.ESTADO_ACTIVO)
             };
 
             var dataTable = DatabaseHelper.ExecuteQuery(query, parameters);
@@ -119,7 +119,7 @@ namespace SistemaAlquilerAutos.DAL
             var parameters = new SqlParameter[]
             {
                 new SqlParameter("@VehiculoId", vehiculoId),
-                new SqlParameter("@EstadoActivo", (int)EstadoAlquiler.Activo)
+                new SqlParameter("@EstadoActivo", Alquiler.ESTADO_ACTIVO)
             };
 
             var dataTable = DatabaseHelper.ExecuteQuery(query, parameters);
@@ -178,7 +178,7 @@ namespace SistemaAlquilerAutos.DAL
                 command.Parameters.AddWithValue("@KilometrajeFin", kilometrajeFin);
                 command.Parameters.AddWithValue("@SucursalDevolucionId", (object?)sucursalDevolucionId ?? DBNull.Value);
                 command.Parameters.AddWithValue("@Observaciones", (object?)observaciones ?? DBNull.Value);
-                command.Parameters.AddWithValue("@EstadoCompletado", (int)EstadoAlquiler.Completado);
+                command.Parameters.AddWithValue("@EstadoCompletado", Alquiler.ESTADO_COMPLETADO);
 
                 int rowsAffected = command.ExecuteNonQuery();
                 return rowsAffected > 0;
@@ -196,7 +196,7 @@ namespace SistemaAlquilerAutos.DAL
             using (var command = new SqlCommand(query, transaction.Connection, transaction.Transaction))
             {
                 command.Parameters.AddWithValue("@Id", id);
-                command.Parameters.AddWithValue("@EstadoCancelado", (int)EstadoAlquiler.Cancelado);
+                command.Parameters.AddWithValue("@EstadoCancelado", Alquiler.ESTADO_CANCELADO);
                 command.Parameters.AddWithValue("@Observaciones", (object?)motivoCancelacion ?? DBNull.Value);
 
                 int rowsAffected = command.ExecuteNonQuery();

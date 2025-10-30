@@ -175,7 +175,7 @@ namespace SistemaAlquilerAutos.BLL
                 }
 
                 // No permitir eliminar vehículos alquilados
-                if (vehiculo.Estado == EstadoVehiculo.Alquilado)
+                if (vehiculo.Estado == Vehiculo.ESTADO_ALQUILADO)
                 {
                     throw new BusinessRuleException("No se puede eliminar un vehículo que está actualmente alquilado.");
                 }
