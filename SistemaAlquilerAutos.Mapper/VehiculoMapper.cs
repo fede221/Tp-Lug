@@ -19,7 +19,7 @@ namespace SistemaAlquilerAutos.Mapper
                 Patente = row["Patente"].ToString() ?? string.Empty,
                 Color = row["Color"].ToString() ?? string.Empty,
                 Kilometraje = Convert.ToInt32(row["Kilometraje"]),
-                Estado = (EstadoVehiculo)Convert.ToInt32(row["Estado"]),
+                Estado = Convert.ToInt32(row["Estado"]),
                 CategoriaId = Convert.ToInt32(row["CategoriaId"]),
                 SucursalId = Convert.ToInt32(row["SucursalId"])
             };

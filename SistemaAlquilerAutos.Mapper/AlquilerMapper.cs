@@ -19,7 +19,7 @@ namespace SistemaAlquilerAutos.Mapper
                 KilometrajeInicio = Convert.ToInt32(row["KilometrajeInicio"]),
                 KilometrajeFin = row["KilometrajeFin"] != DBNull.Value ? Convert.ToInt32(row["KilometrajeFin"]) : null,
                 PrecioTotal = Convert.ToDecimal(row["PrecioTotal"]),
-                Estado = (EstadoAlquiler)Convert.ToInt32(row["Estado"]),
+                Estado = Convert.ToInt32(row["Estado"]),
                 Observaciones = row["Observaciones"] != DBNull.Value ? row["Observaciones"].ToString() : null,
                 ClienteId = Convert.ToInt32(row["ClienteId"]),
                 VehiculoId = Convert.ToInt32(row["VehiculoId"]),

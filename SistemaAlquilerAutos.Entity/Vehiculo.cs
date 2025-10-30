@@ -1,15 +1,17 @@
 namespace SistemaAlquilerAutos.Entity
 {
-    public enum EstadoVehiculo
-    {
-        Disponible = 1,
-        Alquilado = 2,
-        Mantenimiento = 3,
-        Inactivo = 4
-    }
-
+    /// <summary>
+    /// Estados posibles de un vehículo
+    /// 1 = Disponible, 2 = Alquilado, 3 = Mantenimiento, 4 = Inactivo
+    /// </summary>
     public class Vehiculo
     {
+        // Constantes para estados
+        public const int ESTADO_DISPONIBLE = 1;
+        public const int ESTADO_ALQUILADO = 2;
+        public const int ESTADO_MANTENIMIENTO = 3;
+        public const int ESTADO_INACTIVO = 4;
+
         public int Id { get; set; }
         public string Marca { get; set; } = string.Empty;
         public string Modelo { get; set; } = string.Empty;
@@ -17,7 +19,7 @@ namespace SistemaAlquilerAutos.Entity
         public string Patente { get; set; } = string.Empty;
         public string Color { get; set; } = string.Empty;
         public int Kilometraje { get; set; }
-        public EstadoVehiculo Estado { get; set; }
+        public int Estado { get; set; }
 
         // Foreign Keys
         public int CategoriaId { get; set; }
@@ -27,10 +29,26 @@ namespace SistemaAlquilerAutos.Entity
         public Categoria? Categoria { get; set; }
         public Sucursal? Sucursal { get; set; }
 
+        // Propiedad auxiliar para obtener el nombre del estado
+        public string EstadoNombre
+        {
+            get
+            {
+                return Estado switch
+                {
+                    ESTADO_DISPONIBLE => "Disponible",
+                    ESTADO_ALQUILADO => "Alquilado",
+                    ESTADO_MANTENIMIENTO => "Mantenimiento",
+                    ESTADO_INACTIVO => "Inactivo",
+                    _ => "Desconocido"
+                };
+            }
+        }
+
         // Constructor
         public Vehiculo()
         {
-            Estado = EstadoVehiculo.Disponible;
+            Estado = ESTADO_DISPONIBLE;
         }
 
         public override string ToString()

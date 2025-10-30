@@ -1,14 +1,16 @@
 namespace SistemaAlquilerAutos.Entity
 {
-    public enum EstadoAlquiler
-    {
-        Activo = 1,
-        Completado = 2,
-        Cancelado = 3
-    }
-
+    /// <summary>
+    /// Estados posibles de un alquiler
+    /// 1 = Activo, 2 = Completado, 3 = Cancelado
+    /// </summary>
     public class Alquiler
     {
+        // Constantes para estados
+        public const int ESTADO_ACTIVO = 1;
+        public const int ESTADO_COMPLETADO = 2;
+        public const int ESTADO_CANCELADO = 3;
+
         public int Id { get; set; }
         public DateTime FechaInicio { get; set; }
         public DateTime? FechaFin { get; set; }
@@ -16,7 +18,7 @@ namespace SistemaAlquilerAutos.Entity
         public int KilometrajeInicio { get; set; }
         public int? KilometrajeFin { get; set; }
         public decimal PrecioTotal { get; set; }
-        public EstadoAlquiler Estado { get; set; }
+        public int Estado { get; set; }
         public string? Observaciones { get; set; }
 
         // Foreign Keys
@@ -30,6 +32,21 @@ namespace SistemaAlquilerAutos.Entity
         public Vehiculo? Vehiculo { get; set; }
         public Sucursal? SucursalRetiro { get; set; }
         public Sucursal? SucursalDevolucion { get; set; }
+
+        // Propiedad auxiliar para obtener el nombre del estado
+        public string EstadoNombre
+        {
+            get
+            {
+                return Estado switch
+                {
+                    ESTADO_ACTIVO => "Activo",
+                    ESTADO_COMPLETADO => "Completado",
+                    ESTADO_CANCELADO => "Cancelado",
+                    _ => "Desconocido"
+                };
+            }
+        }
 
         // Propiedades calculadas
         public int DiasAlquiler
@@ -59,7 +76,7 @@ namespace SistemaAlquilerAutos.Entity
         // Constructor
         public Alquiler()
         {
-            Estado = EstadoAlquiler.Activo;
+            Estado = ESTADO_ACTIVO;
             FechaInicio = DateTime.Now;
         }
 

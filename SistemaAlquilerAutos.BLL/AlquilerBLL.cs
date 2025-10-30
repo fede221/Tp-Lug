@@ -158,7 +158,7 @@ namespace SistemaAlquilerAutos.BLL
                         throw new EntityNotFoundException("Vehiculo", alquiler.VehiculoId);
                     }
 
-                    if (vehiculo.Estado != EstadoVehiculo.Disponible)
+                    if (vehiculo.Estado != Vehiculo.ESTADO_DISPONIBLE)
                     {
                         throw new BusinessRuleException($"El vehículo {vehiculo.Patente} no está disponible para alquiler.");
                     }
@@ -193,7 +193,7 @@ namespace SistemaAlquilerAutos.BLL
                     // Actualizar el estado del vehículo a Alquilado
                     bool vehiculoActualizado = _vehiculoDAL.UpdateEstado(
                         alquiler.VehiculoId,
-                        EstadoVehiculo.Alquilado,
+                        Vehiculo.ESTADO_ALQUILADO,
                         transaction
                     );
 
@@ -237,7 +237,7 @@ namespace SistemaAlquilerAutos.BLL
                         throw new EntityNotFoundException("Alquiler", alquilerId);
                     }
 
-                    if (alquiler.Estado != EstadoAlquiler.Activo)
+                    if (alquiler.Estado != Alquiler.ESTADO_ACTIVO)
                     {
                         throw new BusinessRuleException("El alquiler no está activo.");
                     }
@@ -282,7 +282,7 @@ namespace SistemaAlquilerAutos.BLL
                     if (vehiculo != null)
                     {
                         vehiculo.Kilometraje = kilometrajeFin;
-                        vehiculo.Estado = EstadoVehiculo.Disponible;
+                        vehiculo.Estado = Vehiculo.ESTADO_DISPONIBLE;
 
                         // Si se devolvió en otra sucursal, actualizar la sucursal del vehículo
                         if (sucursalDevolucionId.HasValue && sucursalDevolucionId.Value != alquiler.SucursalRetiroId)
@@ -329,7 +329,7 @@ namespace SistemaAlquilerAutos.BLL
                         throw new EntityNotFoundException("Alquiler", alquilerId);
                     }
 
-                    if (alquiler.Estado != EstadoAlquiler.Activo)
+                    if (alquiler.Estado != Alquiler.ESTADO_ACTIVO)
                     {
                         throw new BusinessRuleException("Solo se pueden cancelar alquileres activos.");
                     }
@@ -354,7 +354,7 @@ namespace SistemaAlquilerAutos.BLL
                     // Volver a poner el vehículo como disponible
                     bool vehiculoActualizado = _vehiculoDAL.UpdateEstado(
                         alquiler.VehiculoId,
-                        EstadoVehiculo.Disponible,
+                        Vehiculo.ESTADO_DISPONIBLE,
                         transaction
                     );
 

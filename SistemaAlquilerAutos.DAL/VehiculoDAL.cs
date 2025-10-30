@@ -22,7 +22,7 @@ namespace SistemaAlquilerAutos.DAL
 
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@EstadoInactivo", (int)EstadoVehiculo.Inactivo)
+                new SqlParameter("@EstadoInactivo", Vehiculo.ESTADO_INACTIVO)
             };
 
             var dataTable = DatabaseHelper.ExecuteQuery(query, parameters);
@@ -54,12 +54,12 @@ namespace SistemaAlquilerAutos.DAL
             var parameters = sucursalId.HasValue
                 ? new SqlParameter[]
                 {
-                    new SqlParameter("@EstadoDisponible", (int)EstadoVehiculo.Disponible),
+                    new SqlParameter("@EstadoDisponible", Vehiculo.ESTADO_DISPONIBLE),
                     new SqlParameter("@SucursalId", sucursalId.Value)
                 }
                 : new SqlParameter[]
                 {
-                    new SqlParameter("@EstadoDisponible", (int)EstadoVehiculo.Disponible)
+                    new SqlParameter("@EstadoDisponible", Vehiculo.ESTADO_DISPONIBLE)
                 };
 
             var dataTable = DatabaseHelper.ExecuteQuery(query, parameters);
@@ -200,14 +200,14 @@ namespace SistemaAlquilerAutos.DAL
             return rowsAffected > 0;
         }
 
-        public bool UpdateEstado(int id, EstadoVehiculo estado, TransactionManager? transaction = null)
+        public bool UpdateEstado(int id, int estado, TransactionManager? transaction = null)
         {
             string query = "UPDATE Vehiculos SET Estado = @Estado WHERE Id = @Id";
 
             var parameters = new SqlParameter[]
             {
                 new SqlParameter("@Id", id),
-                new SqlParameter("@Estado", (int)estado)
+                new SqlParameter("@Estado", estado)
             };
 
             if (transaction != null)
@@ -234,7 +234,7 @@ namespace SistemaAlquilerAutos.DAL
             var parameters = new SqlParameter[]
             {
                 new SqlParameter("@Id", id),
-                new SqlParameter("@EstadoInactivo", (int)EstadoVehiculo.Inactivo)
+                new SqlParameter("@EstadoInactivo", Vehiculo.ESTADO_INACTIVO)
             };
 
             int rowsAffected = DatabaseHelper.ExecuteNonQuery(query, parameters);
