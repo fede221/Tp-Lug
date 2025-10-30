@@ -1,6 +1,3 @@
-using System;
-using System.Windows.Forms;
-
 namespace SistemaAlquilerAutos.UI
 {
     public partial class FormPrincipal : Form
@@ -8,18 +5,15 @@ namespace SistemaAlquilerAutos.UI
         public FormPrincipal()
         {
             InitializeComponent();
-            ConfigurarFormulario();
+            this.Load += FormPrincipal_Load;
         }
 
-        private void ConfigurarFormulario()
+        private void FormPrincipal_Load(object? sender, EventArgs e)
         {
-            this.Text = "Sistema de Alquiler de Autos";
-            this.Size = new Size(1024, 768);
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.IsMdiContainer = true;
+            CrearMenu();
         }
 
-        private void InitializeComponent()
+        private void CrearMenu()
         {
             // MenuStrip principal
             MenuStrip menuStrip = new MenuStrip();
@@ -32,15 +26,11 @@ namespace SistemaAlquilerAutos.UI
 
             // Menú Gestión
             ToolStripMenuItem menuGestion = new ToolStripMenuItem("&Gestión");
-
             ToolStripMenuItem menuClientes = new ToolStripMenuItem("&Clientes", null, MenuClientes_Click);
             menuClientes.ShortcutKeys = Keys.Control | Keys.C;
-
             ToolStripMenuItem menuVehiculos = new ToolStripMenuItem("&Vehículos", null, MenuVehiculos_Click);
             menuVehiculos.ShortcutKeys = Keys.Control | Keys.V;
-
             ToolStripMenuItem menuCategorias = new ToolStripMenuItem("C&ategorías", null, MenuCategorias_Click);
-
             ToolStripMenuItem menuSucursales = new ToolStripMenuItem("&Sucursales", null, MenuSucursales_Click);
 
             menuGestion.DropDownItems.Add(menuClientes);
@@ -51,10 +41,8 @@ namespace SistemaAlquilerAutos.UI
 
             // Menú Alquileres
             ToolStripMenuItem menuAlquileres = new ToolStripMenuItem("&Alquileres");
-
             ToolStripMenuItem menuNuevoAlquiler = new ToolStripMenuItem("&Nuevo Alquiler", null, MenuNuevoAlquiler_Click);
             menuNuevoAlquiler.ShortcutKeys = Keys.Control | Keys.N;
-
             ToolStripMenuItem menuAlquileresActivos = new ToolStripMenuItem("Alquileres &Activos", null, MenuAlquileresActivos_Click);
             ToolStripMenuItem menuHistorialAlquileres = new ToolStripMenuItem("&Historial", null, MenuHistorialAlquileres_Click);
             ToolStripMenuItem menuDevolverVehiculo = new ToolStripMenuItem("&Devolver Vehículo", null, MenuDevolverVehiculo_Click);
@@ -86,47 +74,6 @@ namespace SistemaAlquilerAutos.UI
             this.Controls.Add(statusStrip);
             this.Controls.Add(menuStrip);
             this.MainMenuStrip = menuStrip;
-
-            // Panel de bienvenida
-            Panel panelBienvenida = new Panel
-            {
-                Dock = DockStyle.Fill,
-                BackColor = Color.WhiteSmoke
-            };
-
-            Label lblBienvenida = new Label
-            {
-                Text = "Sistema de Alquiler de Autos",
-                Font = new Font("Segoe UI", 24, FontStyle.Bold),
-                ForeColor = Color.FromArgb(0, 120, 215),
-                AutoSize = true
-            };
-
-            Label lblInstrucciones = new Label
-            {
-                Text = "Seleccione una opción del menú para comenzar",
-                Font = new Font("Segoe UI", 12),
-                ForeColor = Color.Gray,
-                AutoSize = true
-            };
-
-            // Centrar labels
-            panelBienvenida.Resize += (s, e) =>
-            {
-                lblBienvenida.Location = new Point(
-                    (panelBienvenida.Width - lblBienvenida.Width) / 2,
-                    (panelBienvenida.Height - lblBienvenida.Height) / 2 - 30
-                );
-
-                lblInstrucciones.Location = new Point(
-                    (panelBienvenida.Width - lblInstrucciones.Width) / 2,
-                    lblBienvenida.Bottom + 20
-                );
-            };
-
-            panelBienvenida.Controls.Add(lblBienvenida);
-            panelBienvenida.Controls.Add(lblInstrucciones);
-            this.Controls.Add(panelBienvenida);
         }
 
         // Event Handlers
